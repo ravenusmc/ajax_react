@@ -19,7 +19,6 @@ This project is where I work to make React and Ajax work together. I have been u
 
 ### Issues
 
-
 # Preview
 
 To see a video that talks about this project please go here: COMING SOON
