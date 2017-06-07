@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Ajax and React</title>
-  <link rel= "stylesheet" type= "text/css" href="static/styles/styles.css">
+  <!-- <link rel= "stylesheet" type= "text/css" href="static/styles/styles.css"> -->
   <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
   <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
@@ -28,24 +28,33 @@
     <form action='add_num' method="post" role='form'>
         <input type="text" size="5" name="a"/> +
         <input type="text" size="5" name="b"/> =
+        <br>
+        <br>
+        <button>Add It!</button>
     </form>
+
+    <h1>{{ c }}</h1>
+    <h1 id='result'>Result</h1>
 
 <script type="text/javascript">
 
-  $(function() {
-    var submit_form = function(e) {
-      $.getJSON($SCRIPT_ROOT + '/add_num', {
-        a: $('input[name="a"]').val(),
-        b: $('input[name="b"]').val()
-      }, function(data) {
-        $('#result').text(data.result);
-        $('input[name=a]').focus().select();
-      });
-      return false;
-    };
-    $('a#calculate').bind('click', submit_form);
+    
 
-  });
+
+  //   $(function() {
+  //       var submit_form = function(e) {
+  //           $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+  //       a: $('input[name="a"]').val(),
+  //       b: $('input[name="b"]').val()
+  //     }, function(data) {
+  //       $('#result').text(data.result);
+  //       $('input[name=a]').focus().select();
+  //     });
+  //     return false;
+  //   };
+  //   $('a#calculate').bind('click', submit_form);
+
+  // });
 
 </script>
 
