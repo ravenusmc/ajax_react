@@ -7,41 +7,85 @@
   <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript">
       var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
   </script>
 </head>
 <body>
-  <h1>Hello Mike</h1>
+
+<!--   <h1>jQuery Example</h1>
+    <p>
+      <input type="text" size="5" name="a"/> +
+      <input type="text" size="5" name="b"/> =
+      <span id="result">?</span>
+    </p>
+    <p>
+      <a href=# id="calculate">calculate server side</a>
+    </p> -->
 
   <div id='container'></div>
 
-<script type='text/babel'>
-  
-    var Circle = React.createClass({
-        render: function() {
-            var circleStyle = {
-                padding: 10,
-                margin: 20,
-                display: "inline-block",
-                backgroundColor: this.props.bgColor,
-                borderRadius: "50%",
-                width: 100,
-                height: 100
-            };
+<script type="text/javascript">
 
-            return (
-                <div style={circleStyle}>
-                </div>
-            );
+  $(function() {
+    var submit_form = function(e) {
+      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $('#result').text(data.result);
+        $('input[name=a]').focus().select();
+      });
+      return false;
+    };
+    $('a#calculate').bind('click', submit_form);
+
+  });
+
+</script>
+
+<script type='text/babel'>
+
+    var AjaxExample = React.createClass({
+      getInitialState: function(){
+        return {
+          a: '',
+          b: ''
         }
-    });
+      },
+      getData(e){
+        var _this = this;
+        axios.post('/_add_numbers', {
+          a: this.a.value,
+          b: this.b.value
+        }).then(function (response) {
+              console.log(response);
+          })
+      }, 
+      render: function() {
+        return (
+            <div>
+              <h1>jQuery Example</h1>
+                  <p>
+                    <input type="text" size="5" name="a" ref={(input) => { this.a = input; }}/> +
+                    <input type="text" size="5" name="b" ref={(input) => { this.b = input; }}/> =
+                    <span id="result">?</span>
+                  </p>
+                  <p>
+                    <button onClick={this.getData} id="calculate">calculate server side</button>
+                  </p>
+            </div>
+          )
+        }
+      })
+  
 
     var destination = document.querySelector('#container');
 
     ReactDOM.render(
             <div>
-                <Circle bgColor='#F9C240'/>
+                <AjaxExample/>
             </div>, 
             destination
         )
