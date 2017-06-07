@@ -26,24 +26,24 @@
 
   <div id='container'></div>
 
-<script type="text/javascript">
+// <script type="text/javascript">
 
-  $(function() {
-    var submit_form = function(e) {
-      $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-        a: $('input[name="a"]').val(),
-        b: $('input[name="b"]').val()
-      }, function(data) {
-        $('#result').text(data.result);
-        $('input[name=a]').focus().select();
-      });
-      return false;
-    };
-    $('a#calculate').bind('click', submit_form);
+//   $(function() {
+//     var submit_form = function(e) {
+//       $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
+//         a: $('input[name="a"]').val(),
+//         b: $('input[name="b"]').val()
+//       }, function(data) {
+//         $('#result').text(data.result);
+//         $('input[name=a]').focus().select();
+//       });
+//       return false;
+//     };
+//     $('a#calculate').bind('click', submit_form);
 
-  });
+//   });
 
-</script>
+// </script>
 
 <script type='text/babel'>
 
@@ -55,6 +55,7 @@
         }
       },
       getData(e){
+        alert()
         var _this = this;
         axios.post('/_add_numbers', {
           a: this.a.value,
@@ -68,8 +69,8 @@
             <div>
               <h1>jQuery Example</h1>
                   <p>
-                    <input type="text" size="5" name="a" ref={(input) => { this.a = input; }}/> +
-                    <input type="text" size="5" name="b" ref={(input) => { this.b = input; }}/> =
+                  <input type="text" size="5" name="a" ref={ (a) => this._inputElement = a }/> +
+                    <input type="text" size="5" name="b" ref={ (b) => this._inputElement = b }/> =
                     <span id="result">?</span>
                   </p>
                   <p>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ajax and React</title>
+  <link rel= "stylesheet" type= "text/css" href="static/styles/styles.css">
+  <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript">
+      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+</head>
+<body>
+
+<!--     <h1>jQuery Example</h1>
+        <p>
+            <input type="text" size="5" name="a"/> +
+            <input type="text" size="5" name="b"/> =
+            <span id="result">?</span>
+        </p>
+    <p>
+      <a href=# id="calculate">calculate server side</a>
+    </p> -->
+
+    <h1>Num Page example</h1>
+    <form action='add_num' method="post" role='form'>
+        <input type="text" size="5" name="a"/> +
+        <input type="text" size="5" name="b"/> =
+    </form>
+
+<script type="text/javascript">
+
+  $(function() {
+    var submit_form = function(e) {
+      $.getJSON($SCRIPT_ROOT + '/add_num', {
+        a: $('input[name="a"]').val(),
+        b: $('input[name="b"]').val()
+      }, function(data) {
+        $('#result').text(data.result);
+        $('input[name=a]').focus().select();
+      });
+      return false;
+    };
+    $('a#calculate').bind('click', submit_form);
+
+  });
+
+</script>
+
+</body>
+</html>

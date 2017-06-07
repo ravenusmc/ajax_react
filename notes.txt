@@ -1,0 +1,4 @@
+
+Old Code 
+<input type="text" size="5" name="a" ref={(input) => { this.a = input; }}/> +
+<input type="text" size="5" name="b" ref={(input) => { this.b = input; }}/> =
