@@ -14,49 +14,69 @@
 </head>
 <body>
 
-<!--     <h1>jQuery Example</h1>
-        <p>
-            <input type="text" size="5" name="a"/> +
-            <input type="text" size="5" name="b"/> =
-            <span id="result">?</span>
-        </p>
-    <p>
-      <a href=# id="calculate">calculate server side</a>
-    </p> -->
-
     <h1>Num Page example</h1>
-    <form action='add_num' method="post" role='form'>
-        <input type="text" size="5" name="a"/> +
-        <input type="text" size="5" name="b"/> =
+    <!-- <form action='add_num' method="post" role='form'> -->
+    <form>
+        <input id='a' type="text" size="5" name="a"/> +
+        <input id='b' type="text" size="5" name="b"/> =
         <br>
         <br>
         <button>Add It!</button>
     </form>
 
-    <h1>{{ c }}</h1>
     <h1 id='result'>Result</h1>
 
 <script type="text/javascript">
 
-    
-
-
-  //   $(function() {
-  //       var submit_form = function(e) {
-  //           $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-  //       a: $('input[name="a"]').val(),
-  //       b: $('input[name="b"]').val()
-  //     }, function(data) {
-  //       $('#result').text(data.result);
-  //       $('input[name=a]').focus().select();
-  //     });
-  //     return false;
-  //   };
-  //   $('a#calculate').bind('click', submit_form);
-
-  // });
+  // event.preventDefault();
+  
+  $(document).ready(function(){
+    // $('form').submit(function(event){
+    $('form').on('submit', function(event){
+      $.ajax({
+        data: {
+          a: $('#a').val(),
+          b: $('#b').val()
+        },
+        type: 'POST',
+        url: '/add_num'
+        // dataType: 'json',
+        // data: JSON.stringify(json),
+        // contentType: 'application/json;charset=UTF-8'
+      })
+      .done(function(data){
+        if (data.error){
+          $('#result').text(data.error).show();
+        }else{
+          $('#result').text(data.result).show();
+        }
+      });
+    });
+  });
 
 </script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

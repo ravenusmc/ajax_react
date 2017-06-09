@@ -26,35 +26,36 @@ def add_numbers():
 
 #The functions for num and add_num are a new way to apply ajax to my site. Thus, the reason for the repitiion. 
 
-@app.route("/num", methods=['GET', 'POST'])
+@app.route("/num")
 def num():
-    # c = 0
-    # if request.method == 'POST':
-    #     a = request.form['a']
-    #     b = request.form['b']
-    #     a = int(a)
-    #     b = int(b)
-    #     c = a + b
-    #     return redirect(url_for('num'))
-    # return render_template('num.html', c = c)
     return render_template('num.html')
+
+# @app.route("/num", methods=['GET','POST'])
+# def num():
+#     if request.method == 'POST':
+#         a = request.form['a']
+#         b = request.form['b']
+#         a = int(a)
+#         b = int(b)
+#         if a and b:
+#             c = a + b 
+#             return jsonify(result = c)
+#     return render_template('num.html')
 
 
 @app.route('/add_num', methods=['POST'])
 def add_num():
-    a = request.args.get('a', 0, type=int)
-    b = request.args.get('a', 0, type=int)
+    a = request.form['a']
+    b = request.form['b']
+    a = int(a)
+    b = int(b)
     print(a)
-    print(b)
-    # a = request.form['a']
-    # b = request.form['b']
-    # a = int(a)
-    # b = int(b)
-    # c = a + b
-    # print(c)
-    #return json.dumps({'status':'OK', 'c': c});
-    #return redirect(url_for('num'))
-    return jsonify(result = a + b)
+    if a and b:
+        c = a + b 
+        return jsonify(result = c)
+        # return jsonify({'result': c}) 
+    return jsonify({'error' : 'Missing Data'})
+
 
 
 #This line will actually run the app.
