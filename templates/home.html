@@ -2,48 +2,15 @@
 <html>
 <head>
   <title>Ajax and React</title>
-  <!-- <link rel= "stylesheet" type= "text/css" href="static/styles/styles.css"> -->
-  <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
-  <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+  <script src="https://fb.me/react-15.0.0-rc.2.js"></script>
+  <script src="https://fb.me/react-dom-15.0.0-rc.2.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script type="text/javascript">
-      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-  </script>
 </head>
 <body>
 
-<!--   <h1>jQuery Example</h1>
-    <p>
-      <input type="text" size="5" name="a"/> +
-      <input type="text" size="5" name="b"/> =
-      <span id="result">?</span>
-    </p>
-    <p>
-      <a href=# id="calculate">calculate server side</a>
-    </p> -->
-
-  <div id='container'></div>
-
-// <script type="text/javascript">
-
-//   $(function() {
-//     var submit_form = function(e) {
-//       $.getJSON($SCRIPT_ROOT + '/_add_numbers', {
-//         a: $('input[name="a"]').val(),
-//         b: $('input[name="b"]').val()
-//       }, function(data) {
-//         $('#result').text(data.result);
-//         $('input[name=a]').focus().select();
-//       });
-//       return false;
-//     };
-//     $('a#calculate').bind('click', submit_form);
-
-//   });
-
-// </script>
+<div id='container'></div>
 
 <script type='text/babel'>
 
@@ -54,34 +21,43 @@
           b: ''
         }
       },
-      getData(e){
-        alert()
-        var _this = this;
-        axios.post('/_add_numbers', {
-          a: this.a.value,
-          b: this.b.value
-        }).then(function (response) {
-              console.log(response);
-          })
-      }, 
+      // getData(e){
+      //   alert()
+      //   var _this = this;
+      //   axios.post('/_add_numbers', {
+      //     a: this.a.value,
+      //     b: this.b.value
+      //   }).then(function (response) {
+      //         console.log(response);
+      //     })
+      // }, 
+      addItem: function(e){
+        var a = this.state.a;
+
+        this.setState({
+          a: this._inputElement.value
+        })
+
+        console.log(a);
+
+        e.preventDefault();
+      },
       render: function() {
         return (
             <div>
               <h1>jQuery Example</h1>
-                  <p>
-                  <input type="text" size="5" name="a" ref={ (a) => this._inputElement = a }/> +
-                    <input type="text" size="5" name="b" ref={ (b) => this._inputElement = b }/> =
-                    <span id="result">?</span>
-                  </p>
-                  <p>
-                    <button onClick={this.getData} id="calculate">calculate server side</button>
-                  </p>
+                <form onSubmit={ this.addItem }>
+                  <input size="5" ref={ (a) => this._inputElement = a } placeholder='a' /> +
+                  <input size="5"  ref={ (b) => this._inputElement = b } placeholder='b' /> =
+                  <span id="result">?</span>
+                  <br/>
+                  <button type='submit'>calculate server side</button>
+                </form>
             </div>
           )
         }
       })
   
-
     var destination = document.querySelector('#container');
 
     ReactDOM.render(
@@ -93,6 +69,83 @@
     
   
 </script>
+
+<!-- <script type='text/babel'>
+
+//   var destination = document.querySelector("#container");
+
+//   var TodoItems = React.createClass({
+//     render: function() {
+//         var todoEntries = this.props.entries;
+
+//         function createTasks(item){
+//             return <li key={item.key}>{item.text}</li>
+//         }
+
+//         var listItems = todoEntries.map(createTasks);
+
+//         console.log(listItems)
+
+//         return (
+//             <ul className="theList">
+//                 {listItems}
+//             </ul>
+//         )
+//     }
+//   });
+
+//   var TodoList = React.createClass({
+//     getInitialState: function() {
+//         return {
+//             items: []
+//         }
+//     },
+//     addItem: function(e){
+//         var itemArray = this.state.items;
+
+//         // console.log(this._inputElement.value)
+//         // alert(this._inputElement.value)
+
+//         itemArray.push({
+//             text: this._inputElement.value,
+//             key: Date.now()
+//         });
+
+//         console.log(itemArray)
+
+//         this.setState({
+//             items: itemArray
+//         });
+
+//         this._inputElement.value = "";
+
+//         e.preventDefault();
+//     },
+//     render: function() {
+//       return (
+//         <div className='todoListMain'>
+//             <div className='header'>
+//                 <form onSubmit={this.addItem}>
+//                     <input ref={ (a) => this._inputElement = a } placeholder='Enter Task'>
+//                     </input>
+//                     <button type='submit'>Add</button>
+//                 </form>
+//             </div>
+//             <TodoItems entries={this.state.items}/>
+//         </div>
+//       )
+//     }
+//   })
+
+//   ReactDOM.render(
+//       <TodoList/>,
+//       destination
+//     );
+  
+// </script> -->
+
+
+
 
 </body>
 </html>

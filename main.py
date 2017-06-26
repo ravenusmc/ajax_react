@@ -30,18 +30,6 @@ def add_numbers():
 def num():
     return render_template('num.html')
 
-# @app.route("/num", methods=['GET','POST'])
-# def num():
-#     if request.method == 'POST':
-#         a = request.form['a']
-#         b = request.form['b']
-#         a = int(a)
-#         b = int(b)
-#         if a and b:
-#             c = a + b 
-#             return jsonify(result = c)
-#     return render_template('num.html')
-
 
 @app.route('/add_num', methods=['POST'])
 def add_num():
@@ -53,7 +41,6 @@ def add_num():
     if a and b:
         c = a + b 
         return jsonify(result = c)
-        # return jsonify({'result': c}) 
     return jsonify({'error' : 'Missing Data'})
 
 
